@@ -67,43 +67,6 @@ importers:
         specifier: 2.6.0
         version: 2.6.0
 
-  apps/docs:
-    dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      next:
-        specifier: 'catalog:'
-        version: 16.0.10(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      react:
-        specifier: catalog:react19
-        version: 19.2.3
-      react-dom:
-        specifier: catalog:react19
-        version: 19.2.3(react@19.2.3)
-    devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.10.0
-      '@types/react':
-        specifier: catalog:react19
-        version: 19.2.2
-      '@types/react-dom':
-        specifier: catalog:react19
-        version: 19.2.2(@types/react@19.2.2)
-      eslint:
-        specifier: 'catalog:'
-        version: 9.39.1(jiti@2.6.1)
-      typescript:
-        specifier: 'catalog:'
-        version: 5.9.3
-
   apps/web:
     dependencies:
       '@repo/ui':

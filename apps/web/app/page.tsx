@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "@repo/ui/lib/framer-motion";
+import React from "react";
 export default function Page() {
   return (
-    <main>
+    <div>
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -14,6 +15,6 @@ export default function Page() {
       >
         Motion Button
       </motion.button>
-    </main>
+    </div>
   );
 }
