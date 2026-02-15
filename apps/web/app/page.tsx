@@ -1,20 +1,14 @@
 "use client";
-
-import { motion } from "@repo/ui/lib/framer-motion";
 import React from "react";
+import HeroSection from "../components/home/HeroSection";
+import HowItWork from "../components/home/HowItWork";
+import MenuSection from "../components/home/MenuSection";
 export default function Page() {
   return (
-    <div>
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="px-4 py-2 rounded-lg bg-black text-white"
-      >
-        Motion Button
-      </motion.button>
+    <div className="flex-col items-center justify-center">
+      <HeroSection />
+      <HowItWork/>
+      <MenuSection/>
     </div>
   );
 }
