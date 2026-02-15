@@ -5,14 +5,13 @@ This is Turborepo starter with shadcn/ui pre-configured.
 > [!NOTE]
 > This example uses `pnpm` as package manager.
 
-[bun version](https://github.com/dan5py/turborepo-shadcn-ui/tree/bun)
 
 ## Using this example
 
 Clone the repository:
 
 ```sh
-git clone https://github.com/dan5py/turborepo-shadcn-ui.git
+
 ```
 
 Install dependencies:
