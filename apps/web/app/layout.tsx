@@ -2,6 +2,10 @@ import "@repo/ui/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
+import React from "react";
+
+import Header from "../components/layout/Header";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,7 +20,12 @@ export default function RootLayout({
 }): React.JSX.Element {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${inter.className} antialiased  bg-linear-to-b from-[#FFF5E1] to-[#FFD8B1]  w-full min-h-screen `}
+      >
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
