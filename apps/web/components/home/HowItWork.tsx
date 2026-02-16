@@ -6,6 +6,7 @@ import React from "react";
 
 import { Card, CardDescription, CardTitle } from "@repo/ui/components/ui/card";
 import { motion } from "@repo/ui/lib/framer-motion";
+import SectionHeader from "../shared/SectionHeader";
 
 type Service = {
   heading: string;
@@ -34,38 +35,19 @@ const services: Service[] = [
 export default function HowItWork() {
   return (
     <section
-      id="how-it-works"
-      className="w-full relative px-6 flex flex-col items-center justify-center"
+      // id="how-it-works"
+      className="w-full min-h-screen relative px-6  flex flex-col items-center justify-center"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,180,100,0.25)_0%,transparent_70%)] pointer-events-none" />
-
-      <motion.h4
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-lg md:text-xl font-bold text-[#FF6B35] uppercase tracking-wider"
-      >
-        How it works
-      </motion.h4>
-
-      <motion.h1
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-4xl md:text-5xl font-extrabold text-[#2D1E2F] mt-2 drop-shadow-[3px_3px_0px_#FF9F68]"
-      >
-        What We Serve
-      </motion.h1>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="text-center font-medium text-[#4B2E05] mt-4 leading-relaxed"
-      >
-        Product Quality Is Our Priority, And Always Guarantees <br />
-        Until It’s In Your Hand
-      </motion.p>
+      <SectionHeader
+        sectionName="How it works"
+        heading=" What We Serve"
+        description={
+          <>
+            Product Quality Is Our Priority, And Always Guarantees <br />
+            Until It’s In Your Hand
+          </>
+        }
+      />
 
       {/* service cards */}
       <HowItWorkCard />

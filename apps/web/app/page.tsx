@@ -1,5 +1,7 @@
 "use client";
+
 import React from "react";
+
 import HeroSection from "../components/home/HeroSection";
 import HowItWork from "../components/home/HowItWork";
 import MenuSection from "../components/home/MenuSection";

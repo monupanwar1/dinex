@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@repo/ui/components/ui/card";
 import { motion } from "@repo/ui/lib/framer-motion";
+import SectionHeader from "../shared/SectionHeader";
 
 type Dish = {
   name: string;
@@ -49,31 +50,11 @@ const dishes: Dish[] = [
 export default function MenuSection() {
   return (
     <section className="relative flex flex-col items-center justify-center min-h-screen text-center">
-      <motion.h4
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-lg md:text-xl font-bold text-[#FF6B35] uppercase tracking-wider"
-      >
-        our Menu
-      </motion.h4>
-      <motion.h1
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-4xl md:text-5xl font-extrabold text-[#2D1E2F] mt-2 drop-shadow-[3px_3px_0px_#FF9F68]"
-      >
-        Our Popular Menu
-      </motion.h1>
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="text-center font-medium text-[#4B2E05] mt-4 mb-6 leading-relaxed"
-      >
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic,
-        perferendis!
-      </motion.p>
+      <SectionHeader
+        sectionName="Our Menu"
+        heading=" Our Popular Menu"
+        description="Lorem ipsum dolor, sit a met consectetur a dipisicing elit. Hic, perferendis!"
+      />
       <MenuSectionCard />
       <motion.div
         initial={{ opacity: 0 }}
@@ -144,4 +125,3 @@ function MenuSectionCard() {
     </div>
   );
 }
-
