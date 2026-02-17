@@ -49,7 +49,7 @@ const dishes: Dish[] = [
 
 export default function MenuSection() {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-screen text-center">
+    <section className="relative py-20 flex flex-col items-center justify-center min-h-screen text-center">
       <SectionHeader
         sectionName="Our Menu"
         heading=" Our Popular Menu"
