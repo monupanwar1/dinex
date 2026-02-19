@@ -68,6 +68,7 @@ function HowItWorkCard() {
     <div className="grid md:grid-cols-3 gap-10 mt-16 ">
       {services.map((service, index) => (
         <SectionCard
+          key={index}
           index={index}
           heading={service.heading}
           description={service.description}
