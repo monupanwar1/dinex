@@ -9,7 +9,9 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "ui": "pnpm --filter @repo/ui ui",
-    "prisma": "pnpm --filter database prisma generate",
+    "backend": "pnpm --filter backend dev",
+    "prisma": "pnpm --filter backend prisma generate",
+    "studio": "pnpm --filter backend prisma studio",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
