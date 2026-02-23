@@ -26,3 +26,23 @@ model User {
   role      Role     @default(USER)
   createdAt DateTime @default(now())
 }
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  menu      Menu[]
+  createdAt DateTime @default(now())
+}
+
+model Menu {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  price       Float
+  imageUrl    String
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@index([categoryId])
+}
