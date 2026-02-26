@@ -1,5 +1,6 @@
 import { errorHandler } from "@/middleware/error/middleware";
 import authRoutes from "@/modules/auth/routes";
+import categoryRoutes from "@/modules/category/routes";
 import menuRoutes from "@/modules/menu/routes";
 import express from "express";
 
@@ -9,5 +10,6 @@ app.use(express.json());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/menus", menuRoutes);
+app.use("/api/v1/categories", categoryRoutes);
 
 app.use(errorHandler);
