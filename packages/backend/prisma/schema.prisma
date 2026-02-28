@@ -24,25 +24,51 @@ model User {
   email     String   @unique
   password  String
   role      Role     @default(USER)
+  cart      Cart?
   createdAt DateTime @default(now())
 }
 
 model Category {
   id        String   @id @default(uuid())
   name      String   @unique
-  menu      Menu[]
+  menus     Menu[]
   createdAt DateTime @default(now())
 }
 
 model Menu {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
   description String
   price       Float
   imageUrl    String
   categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  createdAt   DateTime @default(now())
+  category    Category   @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime   @default(now())
+  cartItems   CartItem[]
 
   @@index([categoryId])
+}
+
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id       String @id @default(uuid())
+  cartId   String
+  cart     Cart?  @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  menuId   String
+  menu     Menu   @relation(fields: [menuId], references: [id])
+  quantity Int    @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, menuId])
+  @@index([menuId])
 }

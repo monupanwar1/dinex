@@ -9,7 +9,7 @@ export const findAllCategories = () => {
 export const findCategoryById = (id: string) => {
   return prisma.category.findUnique({
     where: { id },
-    include: { menu: true },
+    include: { menus: true },
   });
 };
 
