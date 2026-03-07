@@ -1,22 +1,34 @@
 import { prisma } from "@/lib/prisma";
 
-export const findCartByUserId = (userId: string) => {
-  return prisma.cart.findUnique({
-    where: { userId },
+const cartInclude = {
+  items: {
     include: {
-      items: {
-        include: {
-          menu: true,
+      menu: {
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          imageUrl: true,
         },
       },
     },
+  },
+};
+
+export const findCartByUserId = (userId: string) => {
+  return prisma.cart.findUnique({
+    where: { userId },
+    include: cartInclude,
   });
 };
+
 export const createCart = (userId: string) => {
   return prisma.cart.create({
     data: { userId },
+    include: cartInclude,
   });
 };
+
 export const findCartItem = (cartId: string, menuId: string) => {
   return prisma.cartItem.findUnique({
     where: {
@@ -27,6 +39,7 @@ export const findCartItem = (cartId: string, menuId: string) => {
     },
   });
 };
+
 export const createCartItem = (
   cartId: string,
   menuId: string,
@@ -36,12 +49,14 @@ export const createCartItem = (
     data: { cartId, menuId, quantity },
   });
 };
+
 export const updateCartItemQuantity = (id: string, quantity: number) => {
   return prisma.cartItem.update({
     where: { id },
     data: { quantity },
   });
 };
+
 export const deleteCartItem = (id: string) => {
   return prisma.cartItem.delete({
     where: { id },

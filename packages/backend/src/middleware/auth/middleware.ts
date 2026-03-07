@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-
 import { verifyToken } from "@/utils/jwt";
 
 export const protect = (req: Request, res: Response, next: NextFunction) => {
@@ -13,13 +12,21 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const decode = verifyToken(token);
-    (req as any).user = decode;
+    const decoded = verifyToken(token) as {
+      userId: string;
+      role: string;
+    };
+
+    req.user = {
+      id: decoded.userId,
+      role: decoded.role,
+    };
+
     next();
   } catch {
     return res.status(401).json({
       success: false,
-      Message: "Invalid token",
+      message: "Invalid token",
     });
   }
 };

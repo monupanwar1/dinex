@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 
 import * as service from "./service";
 
+
+
 export const getAllCategories = async (_: Request, res: Response) => {
   const categories = await service.getCategories();
 
