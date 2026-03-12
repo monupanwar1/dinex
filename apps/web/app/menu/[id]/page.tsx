@@ -27,7 +27,7 @@ export default async function MenuPage({ params }: Props) {
   const menu = await getMenu(id);
 
   return (
-    <div className="max-w-5xl mx-auto py-16 px-6">
+    <div className="max-w-5xl  mx-auto py-20 px-6">
       <div className="grid md:grid-cols-2 gap-10 items-start">
         {/* Image */}
         <div className="w-full aspect-square overflow-hidden rounded-xl border">

@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 
 import React from "react";
 
+import { Toaster } from "sonner";
 import Header from "../components/layout/Header";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,6 +26,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Toaster richColors />
       </body>
     </html>
   );

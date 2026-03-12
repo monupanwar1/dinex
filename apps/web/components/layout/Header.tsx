@@ -13,7 +13,6 @@ import { FaCartShopping } from "react-icons/fa6";
 import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
 
 // shared ui
-import { Button } from "@repo/ui/components/ui/button";
 import { AnimatePresence, motion } from "@repo/ui/lib/framer-motion";
 import { cn } from "@repo/ui/lib/utils";
 
@@ -151,10 +150,13 @@ function Cart() {
 
 function LoginButton() {
   return (
-    <Button className="hidden items-center rounded-md bg-[#FF6B35] px-6 py-2 text-md text-white shadow-[2px_2px_0px_#2D1E2F] transition-all duration-300 hover:bg-[#e85b29] hover:shadow-[3px_3px_0px_#2D1E2F] md:flex">
+    <Link
+      href="/login"
+      className="hidden items-center rounded-md bg-[#FF6B35] px-6 py-2 text-md text-white shadow-[2px_2px_0px_#2D1E2F] transition-all duration-300 hover:bg-[#e85b29] hover:shadow-[3px_3px_0px_#2D1E2F] md:flex"
+    >
       <CiLogin className="mr-2" />
       Login
-    </Button>
+    </Link>
   );
 }
 

@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@repo/ui/components/ui/tabs";
+import React, { useEffect, useState } from "react";
 
 import { API_CONFIG } from "@/config/api";
 import MenuGrid from "./menu-grid";
@@ -23,7 +23,7 @@ export default function MenuTabs() {
     async function loadCategories() {
       const res = await fetch(
         `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CATEGORIES}`,
-        { cache: "no-store" },
+        { cache: "force-cache" },
       );
 
       const { data } = await res.json();
@@ -39,10 +39,24 @@ export default function MenuTabs() {
 
   return (
     <Tabs defaultValue={categories[0]?.id} className="w-full space-y-8">
-      <div className="flex justify-center mb-8">
-        <TabsList className="bg-gray-100/50 p-1">
+      <div className="flex justify-center mb-8 w-full">
+        <TabsList
+          className="
+        flex w-full max-w-full
+        overflow-x-auto
+        sm:overflow-visible
+        flex-nowrap sm:flex-wrap
+        justify-start sm:justify-center
+        bg-gray-100/50 p-1 gap-1
+        scrollbar-hide
+      "
+        >
           {categories.map((cat) => (
-            <TabsTrigger key={cat.id} value={cat.id} className="px-8">
+            <TabsTrigger
+              key={cat.id}
+              value={cat.id}
+              className="px-4 sm:px-8 whitespace-nowrap"
+            >
               {cat.name}
             </TabsTrigger>
           ))}
