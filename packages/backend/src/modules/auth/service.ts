@@ -23,6 +23,8 @@ export const registerUser = async (
     password: hashed,
   });
 
+  const token = generateToken(user.id, user.role);
+
   return {
     user: {
       id: user.id,
@@ -31,7 +33,7 @@ export const registerUser = async (
       role: user.role,
       createdAt: user.createdAt,
     },
-    accessToken: generateToken(user.id, user.role),
+    token,
   };
 };
 export const loginUser = async (email: string, password: string) => {
@@ -47,6 +49,8 @@ export const loginUser = async (email: string, password: string) => {
     throw new ApiError(401, "Invalid credentials");
   }
 
+  const token = generateToken(user.id, user.role);
+
   return {
     user: {
       id: user.id,
@@ -55,6 +59,6 @@ export const loginUser = async (email: string, password: string) => {
       role: user.role,
       createdAt: user.createdAt,
     },
-    accessToken: generateToken(user.id, user.role),
+    token,
   };
 };

@@ -3,6 +3,7 @@ import authRoutes from "@/modules/auth/routes";
 import cartRoutes from "@/modules/cart/routes";
 import categoryRoutes from "@/modules/category/routes";
 import menuRoutes from "@/modules/menu/routes";
+import cookieParser from "cookie-parser";
 import cors, { CorsOptions } from "cors";
 import express from "express";
 
@@ -24,6 +25,7 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/menus", menuRoutes);
