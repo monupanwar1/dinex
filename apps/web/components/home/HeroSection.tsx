@@ -9,6 +9,7 @@ import React from "react";
 // shared ui
 import { Button } from "@repo/ui/components/ui/button";
 import { motion } from "@repo/ui/lib/framer-motion";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -46,20 +47,16 @@ function HeroContent() {
         </h1>
 
         <p className="text-lg font-medium tracking-wide text-[#4B2E05] md:text-xl">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti,
-          reprehenderit.
+          Hungry? We bring your favorite meals to your door in minutes.
         </p>
 
-        <div className="flex flex-wrap justify-center gap-4 pt-2 md:justify-start">
-          <Button className="rounded-xl bg-[#FF6B35] px-8 py-4 text-lg text-white shadow-[6px_6px_0px_#2D1E2F] transition-all duration-300 hover:bg-[#e85b29] hover:shadow-[3px_3px_0px_#2D1E2F]">
-            Get Started 🚀
-          </Button>
-
+        <div className="flex justify-center  items-center pt-2">
           <Button
+            asChild
             variant="outline"
             className="rounded-xl border-2 border-[#2D1E2F] px-8 py-4 text-lg text-[#2D1E2F] shadow-[4px_4px_0px_#FF6B35] transition-all duration-300 hover:bg-[#2D1E2F] hover:text-[#FFD8B1]"
           >
-            View Menu 🍔
+            <Link href="/menu">View Menu 🍔</Link>
           </Button>
         </div>
       </motion.div>
@@ -80,7 +77,7 @@ function HeroContent() {
             width={650}
             height={450}
             priority
-            className="relative h-[400px] rounded-2xl object-cover shadow-[10px_10px_0px_#2D1E2F] transition-transform duration-300 hover:scale-105"
+            className="relative h-100 rounded-2xl object-cover shadow-[10px_10px_0px_#2D1E2F] transition-transform duration-300 hover:scale-105"
           />
         </div>
       </motion.div>

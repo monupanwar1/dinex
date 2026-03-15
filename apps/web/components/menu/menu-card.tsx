@@ -1,49 +1,62 @@
 "use client";
-
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { Menu } from "@/types/menu";
-import { Card } from "@repo/ui/components/ui/card";
-import Link from "next/link";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardTitle,
+} from "@repo/ui/components/ui/card";
+import { motion } from "@repo/ui/lib/framer-motion";
+
 import AddToCartButton from "./add-to-cart-button";
 
 interface Props {
   menu: Menu;
-  onClick: () => void;
+  index: number;
 }
 
-export default function MenuCard({ menu, onClick }: Props) {
+export default function MenuCard({ menu, index }: Props) {
   return (
-    <Card
-      onClick={onClick}
-      className="group cursor-pointer hover:scale-[1.02] transition-all duration-300 overflow-hidden shadow-sm hover:shadow-md"
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      viewport={{ once: true }}
     >
-      <Link href={`/menu/${menu.id}`}>
-        <div className="relative w-full h-48 bg-gray-100">
-          <Image
-            src={menu.imageUrl}
-            alt={menu.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-          />
+      <Card className="relative h-[460px] w-full bg-[#fff0da82] border-2 border-[#2D1E2F] rounded-2xl shadow-[6px_6px_0px_#2D1E2F] flex flex-col items-center text-center px-4 py-6 hover:scale-105 transition-transform duration-300">
+        <Link href={`/menu/${menu.id}`} className="w-full">
+          <div className="relative w-full h-48">
+            <Image
+              src={menu.imageUrl}
+              alt={menu.name}
+              fill
+              className="rounded-md object-cover"
+            />
+          </div>
+        </Link>
+
+        <div className="p-4 flex flex-col items-center text-center gap-2">
+          <CardTitle>{menu.name}</CardTitle>
+
+          <CardDescription className="font-semibold text-neutral-900/70 line-clamp-2">
+            {menu.description}
+          </CardDescription>
         </div>
-      </Link>
 
-      <div className="p-4">
-        <h3 className="font-bold text-lg">{menu.name}</h3>
-        <p className="text-gray-500 text-sm line-clamp-2 h-10 mt-1">
-          {menu.description}
-        </p>
+        <div className="w-full h-0.5 border-b bg-neutral-950"></div>
 
-        <div className="flex justify-between items-center mt-4">
+        <CardFooter className="flex w-full justify-between items-center py-4">
           <span className="font-bold text-lg text-green-600">
             ${menu.price.toFixed(2)}
           </span>
+
           <AddToCartButton menuId={menu.id} />
-        </div>
-      </div>
-    </Card>
+        </CardFooter>
+      </Card>
+    </motion.div>
   );
 }

@@ -15,6 +15,7 @@ import {
 } from "@repo/ui/components/ui/card";
 import { motion } from "@repo/ui/lib/framer-motion";
 import SectionHeader from "../shared/SectionHeader";
+import Link from "next/link";
 
 type Dish = {
   name: string;
@@ -64,8 +65,11 @@ export default function MenuSection() {
       >
         MENU
       </motion.div>
-      <Button className=" mt-20 bg-[#FF6B35] hover:bg-[#e85b29] text-white text-lg px-8 py-4 rounded-xl shadow-[6px_6px_0px_#2D1E2F] hover:shadow-[3px_3px_0px_#2D1E2F] transition-all duration-300">
-        More Menu 🍔
+      <Button
+        asChild
+        className=" mt-20 bg-[#FF6B35] hover:bg-[#e85b29] text-white text-lg px-8 py-4 rounded-xl shadow-[6px_6px_0px_#2D1E2F] hover:shadow-[3px_3px_0px_#2D1E2F] transition-all duration-300"
+      >
+        <Link href="/menu">View Menu 🍔</Link>
       </Button>
     </section>
   );
@@ -89,7 +93,7 @@ function MenuSectionCard() {
           transition={{ duration: 0.6, delay: index * 0.2 }}
           viewport={{ once: true }}
         >
-          <Card className="relative h-[460px] w-80 bg-[#fff0da82] border-2 border-[#2D1E2F] rounded-2xl shadow-[6px_6px_0px_#2D1E2F] flex flex-col items-center justify-center text-center px-4 py-6 hover:scale-105 transition-transform duration-300 z-30">
+          <Card className="relative h-115 w-80 bg-[#fff0da82] border-2 border-[#2D1E2F] rounded-2xl shadow-[6px_6px_0px_#2D1E2F] flex flex-col items-center justify-center text-center px-4 py-6 hover:scale-105 transition-transform duration-300 z-30">
             <Image
               src={dish.image}
               alt={dish.name}

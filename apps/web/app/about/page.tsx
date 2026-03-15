@@ -2,16 +2,9 @@
 
 import React from "react";
 
-import Image from 'next/image';
+import Image from "next/image";
 
-
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@repo/ui/components/ui/card";
+import { Card, CardTitle } from "@repo/ui/components/ui/card";
 import { motion } from "@repo/ui/lib/framer-motion";
 
 import H1 from "../../components/shared/H1";
@@ -66,7 +59,7 @@ export default function Page() {
                 height={300}
                 alt="about"
                 priority
-                className="relative rounded-2xl hover:scale-105 transition-transform duration-300 shadow-[10px_10px_0px_#2D1E2F] object-cover h-[200px] md:h-[300px] lg:h-[400px] w-full"
+                className="relative rounded-2xl hover:scale-105 transition-transform duration-300 shadow-[10px_10px_0px_#2D1E2F] object-cover h-50 md:h-75 lg:h-100 w-full"
               />
             </div>
           </motion.section>
@@ -85,19 +78,17 @@ export default function Page() {
         <div className="relative grid md:grid-cols-3 gap-8 text-center">
           {AboutCard.map((item, index) => (
             <MotionDiv key={index} index={index}>
-              {/* Glowing background */}
+              {/* Glow */}
               <div className="absolute -inset-6 bg-[#ffb36bbe] blur-3xl opacity-40 animate-pulse rounded-full" />
-              <Card className="relative h-80 w-full bg-[#fff0da25] border-2 border-[#2D1E2F] rounded-2xl shadow-[6px_6px_0px_#2D1E2F] flex flex-col items-center justify-center text-center px-4 py-6 hover:scale-105 transition-transform duration-300 z-30">
-                <CardHeader>
-                  <CardTitle className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#2D1E2F] tracking-wide drop-shadow-[2px_2px_0px_#FF9F68]">
-                    {item.Title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm sm:text-base md:text-lg font-semibold text-[#4B2E05]">
-                    {item.Detail}
-                  </p>
-                </CardContent>
+
+              <Card className="relative h-80 w-full bg-[#fff0da25] border-2 border-[#2D1E2F] rounded-2xl shadow-[6px_6px_0px_#2D1E2F] flex flex-col items-center justify-center text-center px-6 py-8 hover:scale-105 transition-transform duration-300 z-30">
+                <CardTitle className="w-full text-2xl md:text-3xl font-extrabold text-[#2D1E2F] drop-shadow-[2px_2px_0px_#FF9F68]">
+                  {item.Title}
+                </CardTitle>
+
+                <p className="mt-3 max-w-xs leading-relaxed text-sm md:text-base font-semibold text-[#4B2E05]">
+                  {item.Detail}
+                </p>
               </Card>
             </MotionDiv>
           ))}

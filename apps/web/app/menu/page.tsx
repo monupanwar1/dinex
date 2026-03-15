@@ -6,7 +6,7 @@ import React from "react";
 
 export default function MenuPage() {
   return (
-    <main className="max-w-7xl py-20 mx-auto p-6">
+    <main className="max-w-7xl h-full min-h-screen py-20 mx-auto p-6">
       <H1 className="text-4xl font-bold text-center mb-4">Menu</H1>
       <MenuTabs />
     </main>

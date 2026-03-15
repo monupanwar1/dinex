@@ -4,7 +4,7 @@ import { deleteCartItem, getCart, updateCartItem } from "@/actions/cart";
 import { Cart } from "@/types/cart";
 import React, { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
-import CartItemCard from "./cart-item-card";
+import CartItemCard from "../../components/cart/cart-item-card";
 
 export default function CartPage() {
   const [cart, setCart] = useState<Cart | null>(null);

@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 
 import { API_CONFIG } from "@/config/api";
 import { Menu } from "@/types/menu";
+
 import MenuCard from "./menu-card";
+import MenuSkeleton from "./menu-skeleton";
 
 async function getMenus(categoryId?: string): Promise<Menu[]> {
   if (!categoryId) return [];
@@ -29,7 +31,9 @@ export default function MenuGrid({ categoryId }: { categoryId?: string }) {
   useEffect(() => {
     async function loadMenus() {
       setLoading(true);
+
       const data = await getMenus(categoryId);
+
       setMenus(data);
       setLoading(false);
     }
@@ -38,13 +42,13 @@ export default function MenuGrid({ categoryId }: { categoryId?: string }) {
   }, [categoryId]);
 
   if (loading) {
-    return <div className="text-center py-20">Loading...</div>;
+    return <MenuSkeleton />;
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-      {menus.map((menu) => (
-        <MenuCard key={menu.id} menu={menu} onClick={() => {}} />
+      {menus.map((menu, index) => (
+        <MenuCard key={menu.id} menu={menu} index={index} />
       ))}
     </div>
   );
