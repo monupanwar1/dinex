@@ -1,5 +1,6 @@
 import React from "react";
 
+import AddToCartButton from "@/components/menu/add-to-cart-button";
 import { API_CONFIG } from "@/config/api";
 import { Menu } from "@/types/menu";
 
@@ -17,13 +18,35 @@ async function getMenu(id: string): Promise<Menu> {
 
   return data;
 }
+export async function addToCart(menuId: string, quantity = 1) {
+  const res = await fetch(
+    `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.MENUS}/add`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ menuId, quantity }),
+      credentials: "include",
+    },
+  );
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Failed to add to cart");
+  }
+
+  return data;
+}
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; menuId: string }>;
 };
 
 export default async function MenuPage({ params }: Props) {
   const { id } = await params;
+
   const menu = await getMenu(id);
 
   return (
@@ -46,9 +69,7 @@ export default async function MenuPage({ params }: Props) {
 
           <div className="text-3xl font-semibold">${menu.price}</div>
 
-          <button className="w-fit px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition">
-            Add to Cart
-          </button>
+          <AddToCartButton menuId={menu.id} />
         </div>
       </div>
     </div>

@@ -1,45 +1,43 @@
-"use server";
-
 import { API_CONFIG } from "@/config/api";
 import { Cart } from "@/types/cart";
 
-export const getCart = async (userId: string): Promise<Cart> => {
-  const res = await fetch(
-    `${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CART}?userId=${userId}`,
-    { cache: "no-store" },
-  );
+export async function getCart(): Promise<Cart | null> {
+  try {
+    const res = await fetch(`${API_CONFIG.BASE_URL}/cart`, {
+      method: "GET",
+      credentials: "include",
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch cart");
+    if (res.status === 401) return null;
+
+    const result = await res.json();
+
+    return result.data as Cart;
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    return null;
   }
+}
 
-  const { data } = await res.json();
-
-  return data;
-};
-
-export const addToCart = async (menuId: string, quantity = 1) => {
-  await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CART}/add`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ menuId, quantity }),
-  });
-};
-
-export const updateCartItem = async (id: string, quantity: number) => {
-  await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CART}/item/${id}`, {
+export async function updateCartItem(
+  itemId: string,
+  quantity: number,
+): Promise<boolean> {
+  // Matches: router.patch("/item/:id")
+  const res = await fetch(`${API_CONFIG.BASE_URL}/cart/item/${itemId}`, {
     method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ quantity }),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ quantity }), // Your schema likely just wants { quantity }
+    credentials: "include",
   });
-};
+  return res.ok;
+}
 
-export const deleteCartItem = async (id: string) => {
-  await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.CART}/item/${id}`, {
+export async function deleteCartItem(itemId: string): Promise<boolean> {
+  // Matches: router.delete("/item/:id")
+  const res = await fetch(`${API_CONFIG.BASE_URL}/cart/item/${itemId}`, {
     method: "DELETE",
+    credentials: "include",
   });
-};
+  return res.ok;
+}
