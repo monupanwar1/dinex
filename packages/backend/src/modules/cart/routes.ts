@@ -6,17 +6,18 @@ import { addToCartSchema, updateQuantitySchema } from "./validation";
 
 const router = Router();
 
-router.use(protect);
+router.get("/", protect, controller.getUserCart);
 
-router.get("/", controller.getUserCart);
-router.post("/add", validate(addToCartSchema), controller.addItem);
-  
+
+router.post("/add", validate(addToCartSchema), protect, controller.addItem);
+
 router.patch(
   "/item/:id",
+  protect,
   validate(updateQuantitySchema),
   controller.updateItemQuantity,
 );
 
-router.delete("/item/:id", controller.deleteItem);
+router.delete("/item/:id", protect, controller.deleteItem);
 
 export default router;
