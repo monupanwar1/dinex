@@ -14,6 +14,7 @@ import { Input } from "@repo/ui/components/ui/input";
 import { Label } from "@repo/ui/components/ui/label";
 import { motion } from "@repo/ui/lib/framer-motion";
 
+import { useUserStore } from "@/store/user-store";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -48,9 +49,17 @@ export default function LoginForm() {
 
   async function onSubmit(data: LoginFormType) {
     try {
-      await axios.post("http://localhost:5000/api/v1/auth/login", data, {
-        withCredentials: true,
-      });
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/auth/login",
+        data,
+        {
+          withCredentials: true,
+        },
+      );
+
+      const user = res.data.data;
+
+      useUserStore.getState().setUser(user);
 
       toast.success("Login successful");
       router.push("/");
@@ -117,7 +126,7 @@ export default function LoginForm() {
               </div>
 
               {/* Submit */}
-              <Button  className="w-full" disabled={isSubmitting}>
+              <Button className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? "Logging in..." : "Login"}
               </Button>
 

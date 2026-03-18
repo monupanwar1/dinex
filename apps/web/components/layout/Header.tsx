@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 // react
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // third party
 import { CiForkAndKnife, CiLogin } from "react-icons/ci";
@@ -13,6 +13,14 @@ import { FaCartShopping } from "react-icons/fa6";
 import { HiOutlineMenuAlt3, HiOutlineX } from "react-icons/hi";
 
 // shared ui
+import { getCartClient } from "@/lib/cart-client";
+import { useCartStore } from "@/store/cart-store";
+import { useUserStore } from "@/store/user-store";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@repo/ui/components/ui/avatar";
 import { AnimatePresence, motion } from "@repo/ui/lib/framer-motion";
 import { cn } from "@repo/ui/lib/utils";
 
@@ -37,6 +45,18 @@ const routes: Route[] = [
 export default function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  const setCart = useCartStore((s) => s.setCart);
+
+  // ✅ LOAD CART ONCE
+  useEffect(() => {
+    const loadCart = async () => {
+      const cart = await getCartClient();
+      if (cart) setCart(cart);
+    };
+
+    loadCart();
+  }, [setCart]);
 
   return (
     <header className="fixed top-0 z-50 flex h-14 w-full items-center justify-between border-b border-black bg-transparent px-3 backdrop-blur-2xl md:px-9">
@@ -120,11 +140,36 @@ function RightActions({
   isOpen: boolean;
   toggle: () => void;
 }) {
+  const user = useUserStore((s) => s.user);
+  const clearUser = useUserStore((s) => s.clearUser);
+
   return (
     <div className="flex items-center space-x-4">
-      <Cart />
+      {user && <Cart />}
 
-      <LoginButton />
+      {user ? (
+        <div className="flex items-center gap-2">
+          {/* username */}
+
+          {/* shadcn avatar */}
+          <Avatar className="h-7 w-7">
+            <AvatarImage alt={user.name} />
+            <AvatarFallback className="bg-orange-400 text-white text-xs">
+              {user.name?.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+
+          {/* logout */}
+          <button onClick={clearUser} className="text-md text-red-500">
+            Logout
+          </button>
+        </div>
+      ) : (
+        <Link href="/login" className="flex items-center gap-1">
+          <CiLogin />
+          Login
+        </Link>
+      )}
 
       <button className="text-2xl md:hidden" onClick={toggle}>
         {isOpen ? <HiOutlineX /> : <HiOutlineMenuAlt3 />}
@@ -136,13 +181,19 @@ function RightActions({
 // ---------------- CART ----------------
 
 function Cart() {
+  const count = useCartStore(
+    (s) => s.cart?.items.reduce((sum, i) => sum + i.quantity, 0) || 0,
+  );
   return (
     <div className="relative">
       <Link href="/cart">
         <FaCartShopping className="text-xl" />
-        <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-400 text-xs">
-          2
-        </span>
+
+        {count > 0 && (
+          <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-orange-400 text-xs">
+            {count > 99 ? "99+" : count}
+          </span>
+        )}
       </Link>
     </div>
   );

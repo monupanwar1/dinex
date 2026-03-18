@@ -1,6 +1,10 @@
 "use client";
 
 import { API_CONFIG } from "@/config/api";
+import { getCartClient } from "@/lib/cart-client";
+import { useCartStore } from "@/store/cart-store";
+import { useUserStore } from "@/store/user-store";
+import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import { toast } from "sonner";
 
@@ -11,7 +15,16 @@ interface AddToCartButtonProps {
 export default function AddToCartButton({ menuId }: AddToCartButtonProps) {
   const [isPending, startTransition] = useTransition();
 
+  const setCart = useCartStore((s) => s.setCart);
+  const user = useUserStore((s) => s.user);
+  const router = useRouter();
+
   const handleAddToCart = () => {
+    if (!user) {
+      toast.error("Please login first");
+      router.push("/login");
+      return;
+    }
     startTransition(async () => {
       try {
         const res = await fetch(
@@ -31,6 +44,8 @@ export default function AddToCartButton({ menuId }: AddToCartButtonProps) {
         }
 
         toast.success("Menu added to cart");
+        const freshCart = await getCartClient();
+        if (freshCart) setCart(freshCart);
       } catch (err: any) {
         toast.error(err.message || "Please login first");
       }

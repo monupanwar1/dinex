@@ -12,8 +12,9 @@ type Props = {
   onRemove: () => void;
   isPending: boolean;
 };
+console.log("card re-render");
 
-export default function CartItemCard({
+function CartItemCard({
   item,
   onIncrease,
   onDecrease,
@@ -83,3 +84,5 @@ export default function CartItemCard({
     </motion.div>
   );
 }
+
+export default CartItemCard;
